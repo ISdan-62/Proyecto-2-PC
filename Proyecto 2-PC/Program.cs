@@ -164,3 +164,45 @@ class Pieza
     }
 }
 
+class Rey : Pieza
+{
+
+    public Rey(int fila, int columna, string color) : base(fila, columna, color, "Rey", tipoLetra(color))
+    {
+
+    }
+
+    private static string tipoLetra(string color)
+    {
+        if (color == "Blanco")
+        {
+            return "R";
+        }
+        else
+        {
+            return "r";
+        }
+    }
+
+    public override bool movimientoV(int nuevaFila, int nuevaColumna, Pieza[,] tablero)
+    {
+        int cambioFila = Math.Abs(nuevaFila - FILA);
+        int cambioColumna = Math.Abs(nuevaColumna - COLUMNA);
+
+        if (cambioFila <= 1 && cambioColumna <= 1)
+        {
+
+            if (cambioFila == 0 && cambioColumna == 0)
+            {
+                return false;
+            }
+
+            if (tablero[nuevaFila, nuevaColumna] == null || tablero[nuevaFila, nuevaColumna].COLOR != this.COLOR)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
