@@ -128,3 +128,39 @@ if (resultadoUsuario == "JTello" && resultadoContrasena == "+Ma0An+PC")
     } while (opcion != 4);
 }
 
+class Pieza
+{
+    public int FILA;
+    public int COLUMNA;
+    public string COLOR;
+    public string TIPO;
+    public string SIMBOLO;
+    public bool VIVA;
+
+    public Pieza(int fila, int columna, string color, string tipoPieza, string simboloPieza)
+    {
+        FILA = fila;
+        COLUMNA = columna;
+        COLOR = color;
+        TIPO = tipoPieza;
+        SIMBOLO = simboloPieza;
+        VIVA = true;
+    }
+
+    public virtual bool movimientoV(int nuevaFila, int nuevaColumna, Pieza[,] tablero)
+    {
+        return false;
+    }
+
+    public void mover(int nuevaFila, int nuevaColumna)
+    {
+        FILA = nuevaFila;
+        COLUMNA = nuevaColumna;
+    }
+
+    public string mostrar()
+    {
+        return SIMBOLO;
+    }
+}
+
