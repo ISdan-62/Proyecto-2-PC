@@ -84,3 +84,47 @@ static string LeerPassword()
     return pass;
 }
 
+int opcion;
+bool correctaOpcion;
+if (resultadoUsuario == "JTello" && resultadoContrasena == "+Ma0An+PC")
+{
+    do
+    {
+        Console.WriteLine();
+        Console.WriteLine("MENU");
+        Console.WriteLine("1. Iniciar partida ");
+        Console.WriteLine("2. Ver reglas del juego");
+        Console.WriteLine("3. Ver puntaje más alto");
+        Console.WriteLine("4. Salir ");
+        Console.WriteLine();
+        Console.Write("Ingrese la opcion que desea realisar: ");
+        correctaOpcion = int.TryParse(Console.ReadLine(), out opcion);
+        switch (opcion)
+        {
+            case 1:
+                {
+                    break;
+                }
+            case 2:
+                {
+                    break;
+                }
+            case 3:
+                {
+
+                    break;
+                }
+            case 4:
+                {
+                    Console.WriteLine("Salida");
+                    break;
+                }
+            default:
+                {
+                    Console.WriteLine("Opcion Invalida");
+                    break;
+                }
+        }
+    } while (opcion != 4);
+}
+
