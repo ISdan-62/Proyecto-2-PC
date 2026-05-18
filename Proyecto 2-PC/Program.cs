@@ -1,4 +1,4 @@
-﻿string Vadiacion1()
+﻿string Vadiacion()
 {
     string usuario;
 
@@ -21,7 +21,7 @@
         }
     }
 }
-string resultadoUsuario = Vadiacion1();
+string resultadoUsuario = Vadiacion();
 
 string Validacion2()
 {
@@ -84,6 +84,12 @@ static string LeerPassword()
     return pass;
 }
 
+Tablero tablero = new Tablero();
+tablero.casillasOrigen();
+
+List<string> nombresRecords = new List<string>();
+List<int> puntajesRecords = new List<int>();
+
 int opcion;
 bool correctaOpcion;
 if (resultadoUsuario == "JTello" && resultadoContrasena == "+Ma0An+PC")
@@ -111,7 +117,6 @@ if (resultadoUsuario == "JTello" && resultadoContrasena == "+Ma0An+PC")
                 }
             case 3:
                 {
-
                     break;
                 }
             case 4:
@@ -191,16 +196,126 @@ class Rey : Pieza
 
         if (cambioFila <= 1 && cambioColumna <= 1)
         {
-
             if (cambioFila == 0 && cambioColumna == 0)
             {
                 return false;
             }
+            else
+            {
+                if (tablero[nuevaFila, nuevaColumna] == null || tablero[nuevaFila, nuevaColumna].COLOR != this.COLOR)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+}
+class Torre : Pieza
+{
+    public Torre(int fila, int columna, string color) : base(fila, columna, color, "Torre", tipoLetra(color))
+    { 
+    
+    }
 
-            if (tablero[nuevaFila, nuevaColumna] == null || tablero[nuevaFila, nuevaColumna].COLOR != this.COLOR)
+    private static string tipoLetra(string color)
+    {
+        if (color == "Blanco")
+        {
+            return "T";
+        }
+        else
+        {
+            return "t";
+        }
+    }
+
+    public override bool movimientoV(int nuevaFila, int nuevaColumna, Pieza[,] tablero)
+    {
+        if (FILA == nuevaFila && COLUMNA == nuevaColumna)
+        {
+            return false;
+        }
+
+        if (FILA != nuevaFila && COLUMNA != nuevaColumna)
+        {
+            return false;
+        }
+
+        int pasoFila = Math.Sign(nuevaFila - FILA);
+        int pasoColumna = Math.Sign(nuevaColumna - COLUMNA);
+
+        int caminoFila = FILA + pasoFila;
+        int caminoColumna = COLUMNA + pasoColumna;
+
+        while (caminoFila != nuevaFila || caminoColumna != nuevaColumna)
+        {
+            if (tablero[caminoFila, caminoColumna] != null)
+            {
+                return false;
+            }
+            caminoFila += pasoFila;
+            caminoColumna += pasoColumna;
+        }
+
+        if (tablero[nuevaFila, nuevaColumna] == null || tablero[nuevaFila, nuevaColumna].COLOR != this.COLOR)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+class Peon : Pieza
+{
+    public Peon(int fila, int columna, string color) : base(fila, columna, color, "Peon", tipoLetra(color))
+    {
+
+    }
+
+    private static string tipoLetra(string color)
+    {
+        if (color == "Blanco")
+        {
+            return "P";
+        }
+        else
+        {
+            return "p";
+        }
+    }
+
+    public override bool movimientoV(int nuevaFila, int nuevaColumna, Pieza[,] tablero)
+    {
+        int direccion;
+
+        if (COLOR == "Blanco")
+        {
+            direccion = 1;
+        }
+        else
+        {
+            direccion = -1;
+        }
+
+        if (nuevaColumna == COLUMNA)
+        {
+            if (nuevaFila == FILA + direccion && tablero[nuevaFila, nuevaColumna] == null)
             {
                 return true;
             }
+        }
+
+        if (Math.Abs(nuevaColumna - COLUMNA) == 1 && nuevaFila == FILA + direccion && tablero[nuevaFila, nuevaColumna] != null && tablero[nuevaFila, nuevaColumna].COLOR != COLOR)
+        {
+            return true;
         }
 
         return false;
